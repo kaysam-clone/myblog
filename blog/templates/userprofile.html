@@ -1,0 +1,163 @@
+{% extends 'blog/dashboard.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	{% block content %}
+	<title>{{user.username}} | Profile</title>
+	<style type="text/css">
+
+		.details {
+			width: 80%;
+			border: 1px solid #ccc;
+			border-radius: 6px;
+			margin: 30px auto;
+		}
+		.details .head {
+			background-color: rgba(0,0,0,0.1);
+			padding: 15px;
+			text-align: center;
+		}
+		.head h2 {
+			font-size: 18px;;
+		}
+		.table {
+			padding: 15px;
+		}
+		table {
+		    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		    border-collapse: collapse;
+		    width: 100%;
+		}
+
+		table td, table th {
+		    border: 1px solid #ddd;
+		    padding: 16px;
+		}
+
+		table tr:nth-child(even){background-color: #f2f2f2;}
+
+		table tr:hover {
+			background-color: rgba(0,0,0,0.1);
+		}
+
+		table {
+			border: 1px solid #ccc;
+		}
+		.details .head th {
+		    padding-top: 12px;
+		    padding-bottom: 12px;
+		    text-align: left;
+		    background-color: #4CAF50;
+		    color: white;
+		}
+		.mobile-view {
+			display: none;
+		}
+		@media only screen and (max-width: 560px) {
+			.details {
+				width: 350px;
+			}
+			table {
+				display: none; 
+			}
+			.mobile-view {
+				display: block;
+			}
+		}
+		@media only screen and (max-width: 380px) {
+			.details {
+				width: 300px;
+			}
+		}
+		
+	</style>
+</head>
+<body>
+		<div class="main-content">
+			<div>
+				<div class="details">
+					<div class="head">
+						<h2>My Profile</h2>
+					</div>
+					<div class="table">
+						<table>
+							<tr>
+								<td>User ID</td>
+								<td>{{user.id}}</td>
+							</tr>
+							<tr>
+								<td>Username</td>
+								<td>{{user.username}}</td>
+							</tr>
+							<tr>
+								<td>First Name</td>
+								<td>{{user.first_name}}</td>
+							</tr>
+							<tr>
+								<td>Last name</td>
+								<td>{{user.last_name}}</td>
+							</tr>
+							<tr>
+								<td>Gender</td>
+								<td>{{user.userprofile.gender}}</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td>{{user.email}}</td>
+							</tr>
+							<tr>
+								<td>Facebook</td>
+								<td>{{user.userprofile.facebook}}</td>
+							</tr>
+							<tr>
+								<td>Website Link</td>
+								<td>{{user.userprofile.website_link}}</td>
+							</tr>
+							<tr>
+								<td>Twitter</td>
+								<td>{{user.userprofile.twitter}}</td>
+							</tr>
+							<tr>
+								<td>Linkedin</td>
+								<td>{{user.userprofile.linkedin}}</td>
+							</tr>
+						</table>
+						<div class="mobile-view">
+								<strong>User ID:</strong>
+								{{user.id}}<br><br>
+							
+								<strong>Username:</strong>
+								{{user.username}}<br><br>
+							
+								<strong>First Name</strong>
+								{{user.first_name}}<br><br>
+							
+								<strong>Last name</strong>
+								{{user.last_name}}<br><br>
+							
+								<strong>Gender</strong>
+								{{user.userprofile.gender}}<br><br>
+							
+								<strong>Email:</strong>
+								{{user.email}}<br><br>
+							
+								<strong>Facebook:</strong>
+								{{user.userprofile.facebook}}<br><br>
+							
+								<strong>Website Link:</strong>
+								{{user.userprofile.website_link}}<br><br>
+							
+								<strong>Twitter:</strong>
+								{{user.userprofile.twitter}}<br><br>
+							
+								<strong>Linkedin:</strong>
+								{{user.userprofile.linkedin}}<br><br>
+							</div>
+					</div>
+
+		{% endblock %}
+				</div>
+			</div>
+</body>
+</html>

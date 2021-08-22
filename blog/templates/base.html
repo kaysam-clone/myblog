@@ -1,0 +1,427 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-family: sans-serif;
+		}
+		body {
+			overflow-x: hidden;
+		}
+		.container {
+			width: 100%;
+			margin-right: auto;
+			margin-left: auto;
+		}
+		.main-nav{
+			box-shadow: 0px 3px 2px 0px rgba(0, 0, 0, 0.1);
+		}
+		.navbar {
+			width: 90%;
+			display: flex;
+			height: 10vh;
+			padding: 0px 5px;
+			margin-right: auto;
+			margin-left: auto;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.logo p{
+			font-size: 30px;
+			font-weight: bold;
+			letter-spacing: 9px;
+			color: salmon;
+		}
+		.nav ul{
+			width: 400px;
+			text-align: center;
+			display: flex;
+			margin: 0px;;
+			justify-content: space-between;
+		}
+		.nav ul li {
+			list-style: none;
+			padding-right: 50px;
+		}
+		.nav ul li a {
+			color: salmon;
+			text-decoration: none;
+			transition: .3s;
+		}
+		.nav ul li a:hover {
+			color: sandybrown;
+			transition: .3s;
+		}
+		.profile img{
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+		}
+		.log ul li {
+			list-style: none;
+			display: inline;
+		}
+		.log ul li a{
+			color: salmon;
+			text-decoration: none;
+			padding: 0px 10px;;
+		}
+		.burger {
+			height: 17px;
+			cursor: pointer;
+			width: 25px;
+			display: none;
+			margin-right: 15px;
+		}
+		.burg1 {
+			background-color: salmon;
+			width: 24px;
+			height: 3px;
+			transition: .3s;
+		} 
+		.burg2, .burg3 {
+			background-color: salmon;
+			margin-top: 5px;
+			width: 24px;
+			height: 3px;	
+			transition: .3s;
+		}
+		.burg1.tog{
+			transform: rotate(-45deg) translate(-5px,6px);
+			transition: .3s;
+		}
+		.burg2.tog {
+			opacity: 0;
+			transition: .3s;
+		}
+		.burg3.tog {
+			transition: .3s;
+			transform: rotate(45deg) translate(-5px,-6px);
+		}
+		.nav-links {
+			position: absolute;
+			width: 25%;
+			left: 100%;
+			text-align: center;
+			background-color: white;
+			transition: .4s;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+		}
+		.nav-links ul li {
+			list-style: none;
+			padding: 20px 0px;;
+		}
+		.nav-links ul li a {
+			color: salmon;
+			text-decoration: none;
+		}
+		.nav-links img{
+			width: 40px;
+			border-radius: 50%;
+		}
+		.user {
+			width: 60%;
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+			margin: 0px auto;
+		}
+		.nav-links ul li a:hover {
+			color: sandybrown;
+		}
+		.head {
+			text-align: center;
+			margin-top: 20px;
+		}
+		.head p.bold {
+			font-size: 40px;
+			letter-spacing: 8px;
+		}
+		.head p {
+			font-size: 14px;
+		}
+		.showcase {
+			background-image: url('{% static 'images/cloth.jpg' %}');
+			background-repeat: no-repeat;
+			height: 70vh;
+			background-position:center;
+			margin-top: 20px;
+		}
+		.search-box {
+			padding-top: 180px;
+			text-align: center;
+		}
+		.search-box input {
+			background: transparent;
+			color: white;
+			border: 3px solid white;
+			width: 60%;
+			padding: 10px 20px;
+			border-radius: 20px;
+			height: 30px;
+			font-size: 20px;
+			margin: 0px auto;
+			outline: none;
+
+		}
+		.search-box button {
+			margin-top: 20px;
+			padding: 14px 55px;
+			background-color: skyblue;
+			border-radius: 5px;
+			border: none;
+			outline: none;
+			cursor: pointer;
+		}
+		#main {
+			width: 100%;
+			margin-top: 40px;
+			margin-bottom: 80px;
+		}
+		.main {
+			width: 100%;
+
+		}
+		#cards {
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+
+		}
+		.post-create {
+			float: right;
+			margin-top: -20px;
+			margin-bottom: 20px;
+			background-color: black;
+		}
+		.post-create a{
+			text-decoration: none;
+		}
+		.submain {
+			width: 34%;
+		}
+		.card {
+			width: 30%;
+			padding: 10px 10px;
+			border-bottom: 0.5px solid #ccc;
+		}
+		p.recent {
+			text-decoration: underline;
+			font-weight: 600;
+			font-size: 20px;
+		}
+		.card p.fashion {
+			text-align: center;
+			font-size: 12px;
+			background-color: pink;
+			width: 150px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 5px 7px;
+			border-radius: 2px;
+			color: white;
+			letter-spacing: 2px;
+		}
+		.card p.date {
+			text-align: center;
+			font-size: 12px;
+			background-color: transparent;
+			width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 5px 7px;
+			border-radius: 2px;
+			color: #ccc;
+			letter-spacing: 2px;
+		}
+		.card p.bold {
+			text-align: center;
+			margin-top: 20px;
+			font-size: 17px;
+			letter-spacing: 1px;
+			background-color: transparent;
+			color: black;
+			margin-top: 10px;
+			width: initial;
+		}
+		.card img {
+			width: 100%;
+			margin-top: 15px;
+		}
+		.card p.text {
+			font-size: 13px;
+			margin-top: 20px;
+			line-height: 1.5rem;
+		}
+		.card button {
+			padding: 12px 17px;
+			border: none;
+			color: white;
+			background-color: pink;
+			border-radius: 2px;
+			margin-bottom: 15px;
+		}
+		.card button a{
+			color: white;
+			text-decoration: none;
+		}
+		.bottom {
+			margin-top: 10px;
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+		}
+		.bottom ul li {
+			list-style: none;
+			display: inline-block;
+			padding-left: 10px;
+		}
+		.page {
+			width: 100%;
+			margin-top: 40px;;
+		}
+		.page ul li {
+			list-style: none;
+		}
+		.page ul li a{
+			text-decoration: none;
+		}
+		.next, .previous {
+			background-color: pink;
+			color: white;
+			padding: 10px;
+		}
+		.page ul {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+		}
+		.pages {
+		background-color: blanchedalmond;
+		padding: 10px;
+		}
+		@media only screen and (max-width: 1240px) {
+			.card {
+				width: 40%;
+			}
+		}
+		@media only screen and (max-width: 1040px) {
+			.card {
+				width: 47%;
+			}
+		}
+		@media only screen and (max-width: 950px) {
+			.nav ul li {
+				list-style: none;
+				padding-right: 55px;
+			}
+			.showcase .search-box {
+				padding-top: 130px;
+
+			}
+			.container {
+				width: 100%;
+			}
+			.nav-links.toggle {
+				left: 76%;
+			}
+			.burger{
+				display: block
+			}
+			.nav, .profile{
+				display: none;
+			}
+		}
+		@media only screen and (max-width: 768px) {
+			.showcase .search-box {
+				padding-top: 130px;
+
+			}
+			.card {
+				width: 67%;
+			}
+		}
+
+</style>
+</head>
+<div class="container">
+	<div class="main-nav">
+		<div class="navbar">
+			<div class="logo">
+				<p>LOGO</p>
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a href="{% url 'home' %}">Home</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="{% url 'post' %}" onclick="post()">Posts</a></li>
+					<li><a href="#">Guest</a></li>
+				</ul>
+			</div>
+			{% if user.is_authenticated %}
+				<div class="profile">
+					<a href="{% url 'userprofile' %}"><img src="{{user.userprofile.image.url}}"></a>
+				</div>
+			{% else %}
+			<div class="log">
+				<ul>
+					<li><a href="{% url 'login' %}">Login</a></li>
+					<li><a href="{% url 'register' %}">Register</a></li>
+				</ul>
+			</div>
+			{% endif %}
+			<div class="burger" onclick="tog()">
+				<div class="burg1"></div>
+				<div class="burg2"></div>
+				<div class="burg3"></div>
+			</div>
+		</div>
+	</div>
+	{% if user.is_authenticated %}
+	<div class="nav-links">
+		<ul>
+			<li><a href="{% url 'home' %}">Home</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="{% url 'post' %}">Posts</a></li>
+			<li><a href="#">Guest</a></li>
+			<li><a href="{% url 'userprofile' %}"><div class="user"><img src="{{user.userprofile.image.url}}"><span>Users profile</span></div></a></li>
+		</ul>
+	</div>
+	{% else %}
+	<div class="nav-links">
+		<ul>
+			<li><a href="{% url 'home' %}">Home</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="{% url 'post' %}">Posts</a></li>
+			<li><a href="#">Guest</a></li>
+			<li><a href="{% url 'login' %}">Login</a></li>
+			<li><a href="{% url 'register' %}">Register</a></li>
+		</ul>
+	</div>
+	{% endif %}
+
+</div>
+<script>
+	function tog(){
+		let x = document.querySelector('.nav-links')
+		let y = document.querySelector('.burg1');
+		let b = document.querySelector('.burg2');
+		let a = document.querySelector('.burg3');
+		x.classList.toggle('toggle');
+		y.classList.toggle('tog');
+		a.classList.toggle('tog');
+		b.classList.toggle('tog');
+		}
+
+	function post(){
+		ajax_data('./post', 'pages', null);
+	}
+</script>
+{% block content %}
+{% endblock %}

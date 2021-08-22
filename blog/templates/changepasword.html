@@ -1,0 +1,133 @@
+{% extends 'blog/dashboard.html' %}
+{% block content %}
+{% load static %}
+<script src="{% static 'js/jquery.js' %}"></script>
+<title>Change Password</title>
+<style type="text/css">
+	.main-content .content2 {
+		width: 500px;
+		margin: 80px auto;
+		border: 1px solid #ccc;
+		background-color: rgba(0,0,0,0.05);
+	}
+	.content2 .head {
+		padding: 13px;
+		border-bottom: 1px solid #ccc;
+	}
+	.head h2 {
+		font-size: 18px;;
+	}
+	.content2 form {
+		padding: 20px;
+	}
+	form p {
+		font-size: 18px;
+		margin: 10px 0px;
+
+	}
+	form input[type='password'] {
+		padding: 10px;
+		width: 450px;
+		outline: none;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+	}
+	form input[type='submit'] {
+		padding: 9px;
+		width: 110px;
+		margin-top: 10px;
+	}
+	.content2 .danger {
+		width: 420px;
+		margin: 10px auto;
+		padding: 10px;
+		color: #BA2121;
+		border-radius: 5px;
+		border: 2px solid #BA2121;
+	}
+	.content2 .success {
+		width: 420px;
+		margin: 10px auto;
+		padding: 10px;
+		color: #66B366;
+		border-radius: 5px;
+		border: 2px solid #66B366;
+	}
+	#none {
+		color: red;
+		font-size: 13px;
+	}
+	.red {
+		color: red;
+	}
+	@media only screen and (max-width: 700px) {
+		.main-content .content2 {
+			margin-top: 60px;
+
+		}
+	}
+	@media only screen and (max-width: 550px) {
+		.main-content .content2 {
+			width: 300px;
+			margin-top: 60px;
+		}
+		form input[type='password'] {
+			width: 260px;
+		}
+		form input[type='submit'] {
+			width: 70px;
+			padding: 5px;
+		}
+	}
+
+</style>
+
+<div class="main-content">
+	<div class="content2">
+		<div class="head">
+			<h2>Change Password</h2>
+		</div>
+		{% if msg %}
+		<p class="{{col}}">{{msg}}</p>
+		{% endif %}
+		{% if msz %}
+		<p class="{{suc}}">{{msz}}</p>
+		{% endif %}
+		<div class="main-form">
+			<form method="POST">
+				{% csrf_token %}
+				<p>Current Password<span class="red">*</span></p>
+				<input type="password" placeholder="Current Password" name="cpwd" id="cpwd" required>
+				<p>New Password<span class="red">*</span></p>
+				<input type="password" placeholder="New Password" onkeyup="on()" name="pwd1" id="pwd1" required>
+				<p>Confirm New Password<span class="red">*</span></p>
+				<span id="none" style="display: none;">Password does not match</span>
+				<input type="password" placeholder="Confirm New Password" onkeyup="on()" name="pwd2" id="pwd2" required><br>
+				<input type="submit" id="btn">
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function on(){
+		let p1 = $('#pwd1').val();
+		let p2 = $('#pwd2').val();
+		if (p2 == p1){
+			$('#pwd1').css("border", "1px solid green");
+			$('#pwd2').css('border', '1px solid green');
+			$('#btn').removeAttr('disabled');
+			$('#none').css('display', 'none');
+
+		}	
+		else {
+			$('#pwd1').css('border', '1px solid red');
+			$('#pwd2').css('border', '1px solid red');
+			$('#btn').attr('disabled', 'disabled');
+			$('#none').css('display', 'block')
+		}
+	}
+	
+</script>
+</div>
+{% endblock %}

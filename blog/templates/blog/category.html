@@ -1,0 +1,63 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load static %}
+<title>Categories</title>
+<link rel="stylesheet" href="{% static 'css/category.css' %}">
+<div class="contain">
+    <div class="message">
+        {% if messages %}
+        {% for message in messages %}
+        <div>
+            <p>{{ message }}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="opacity" style ="background-color: white; opacity: 1; transition: .5s;">
+        <div class="cate">
+            <h1 style="margin: 20px 0px;">Categories</h1>
+            <div>
+                <button onclick="search_click()">search</button>
+                <button onclick="click_in()">Create Category</button>
+                <form class="form" action="" method="GET">
+                    <p>Search</p>{{filters.form}}
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+        </div>
+        <div class="opa" style ="background-color: white; opacity: 1; transition: .5s;">
+            <div id="category">
+                {% for cat in category %}
+                <div class="category" style="background-image: url('{{cat.imageURL}}');">
+                    <p>{{cat.category_name}}</p>
+                    <a href="/post/?category={{cat.category_name}}"><button>View</button></a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>    
+    </div>
+<div class="cat">
+    <form method="POST" enctype="multipart/form-data">
+        <h2>Add Category</h2>
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" name="" id="">Submit</button>
+        <a href="#" onclick="click_in()">Cancel</a>
+    </form>
+</div>
+</div>
+<script>
+    function click_in(){
+        var tg = document.querySelector('.cat')
+        tg.classList.toggle('toggle')
+        var g = document.querySelector('.opacity')
+        g.classList.toggle('toggle')
+    }
+    function search_click(){
+        var tgs = document.querySelector('.form')
+        tgs.classList.toggle('toggle')
+        // var sg = document.querySelector('.opa')
+        // sg.classList.toggle('toggle')
+    }
+</script>
+{% endblock %}
